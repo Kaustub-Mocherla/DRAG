@@ -1,21 +1,28 @@
 import fitz
 import chromadb
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
-docs = fitz.open("/home/ghostface/Desktop/23STUCHH011056/Special_porject/Papers/1.pdf")
-full_text = ""
-
-for page in docs:
-    full_text+=page.get_text()
+from pathlib import Path
+directory = Path("/home/ghostface/Desktop/23STUCHH011056/Special_porject/Papers")
+pdf_files = directory.glob("*.pdf")   
 
 chunk_size = 1000
 chunk_overlap = 200
 chunks = []
 index = []
-for idx in range(0,len(full_text),chunk_size - chunk_overlap):
-    chunks.append(full_text[idx : idx+chunk_size])
-    index.append(f"id{idx}")
+metadatas = []
 
-chroma_client = chromadb.Client()
+for file in pdf_files:
+    docs = fitz.open(file)
+    text = ""
+    for page in docs:
+        text += page.get_text()
+
+    for idx in range(0, len(text), chunk_size - chunk_overlap):
+        chunks.append(text[idx : idx + chunk_size])
+        index.append(f"{file.name}_{idx}")  
+        metadatas.append({"source": file.name, "chunk_start": idx})
+
+chroma_client = chromadb.PersistentClient(path="./chroma_db")
 embedding_function = SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
 
 collection = chroma_client.create_collection(
@@ -26,7 +33,8 @@ collection = chroma_client.create_collection(
 
 collection.upsert(
     ids=index,
-    documents=chunks
+    documents=chunks,
+    metadatas=metadatas,
 )
 
 print(collection.count())
