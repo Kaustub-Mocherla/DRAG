@@ -3,4 +3,3 @@ chroma_db/
 __pycache__/
 .venv/
 test.py
-node.py
