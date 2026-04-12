@@ -1,14 +1,9 @@
-import chromadb
+import requests
 from ollama import chat
+query = input("query :")
+response = requests.post("http://localhost:8000/query",json={"query":query})
 
-chroma_client = chromadb.PersistentClient(path="./chroma_db")
-collection = chroma_client.get_collection("my_collection")
-res= input("query : ")
-results = collection.query(
-    query_texts=[res], 
-    n_results=10
-)
-context = "\n\n".join(results['documents'][0])
+context = "\n\n".join(response.json()['chunks'])
 
 prompt = f"""Answer the question using ONLY the context below. If the answer is not in the context, say "I don't have enough information."
 
@@ -16,7 +11,7 @@ Context:
 {context}
 
 Question:
-{res}
+{query}
 
 Answer:"""
 print("Retrieved context:")
@@ -30,4 +25,4 @@ stream = chat(
 )
 print("responding...")
 for chunk in stream:
-  print(chunk['message']['content'], end='', flush=True)
+    print(chunk['message']['content'], end='', flush=True)
