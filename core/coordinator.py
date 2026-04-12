@@ -1,9 +1,17 @@
 import requests
 from ollama import chat
 query = input("query :")
-response = requests.post("http://localhost:8000/query",json={"query":query})
+nodes = [
+    "http://localhost:8001/query",
+    "http://localhost:8002/query"
+]
 
-context = "\n\n".join(response.json()['chunks'])
+all_chunks = []
+for node in nodes:
+    response = requests.post(node, json={"query": query})
+    all_chunks.extend(response.json()['chunks'])
+
+context = "\n\n".join(all_chunks)
 
 prompt = f"""Answer the question using ONLY the context below. If the answer is not in the context, say "I don't have enough information."
 

@@ -4,7 +4,7 @@ from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunct
 from pathlib import Path
 
 def ingest():
-    directory = Path("/home/ghostface/Desktop/23STUCHH011056/Special_porject/Papers")
+    directory = Path("/home/ghostface/Desktop/CV")
     pdf_files = directory.glob("*.pdf")   
 
     chunk_size = 500
@@ -30,7 +30,7 @@ def ingest():
                 "title": pdf_metadata.get("title", "unknown")
             })
 
-    chroma_client = chromadb.PersistentClient(path="/home/ghostface/Desktop/DRAG/chroma_db")
+    chroma_client = chromadb.PersistentClient(path="/home/ghostface/Desktop/DRAG/chroma_db_node2")
     embedding_function = SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
 
     collection = chroma_client.create_collection(
