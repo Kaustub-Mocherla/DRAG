@@ -1,5 +1,7 @@
-chroma_db/
+chroma_db*/
 *.pdf
 __pycache__/
 .venv/
-test.py
+*.pyc
+.env
+notes.md
