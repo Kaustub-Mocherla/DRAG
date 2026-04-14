@@ -33,15 +33,14 @@ def search(request: QueryRequest):
 
     context = "\n\n".join(all_chunks[:5])
 
-    prompt = f"""Answer the question using ONLY the context below. If the answer is not in the context, say "I don't have enough information."
+    prompt = f"""Answer the question using ONLY the context below. If the answer is not in the context, say "I don't have enough information".
 
-Context:
-{context}
+    Context:
+    {context}
 
-Question:
-{request.query}
+    Question: {request.query} using ONLY the context below. Do not use external knowledge.
 
-Answer:"""
+    Answer:"""
 
     def generate():
         stream = chat(
