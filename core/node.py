@@ -1,4 +1,4 @@
-#this takes the embedded database and retrives the matching results
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 import chromadb

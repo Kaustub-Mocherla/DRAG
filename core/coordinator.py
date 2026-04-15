@@ -1,4 +1,4 @@
-# acts as a coordinator between nodes, finds the matching chunks of the query from the nodes and passes to ollama to summarise the retrived data
+
 import requests
 from ollama import chat
 from fastapi import FastAPI
@@ -27,7 +27,7 @@ def search(request: QueryRequest):
             all_chunks.extend(data['chunks'])
             all_metadatas.extend(data['metadatas'])
         except Exception:
-            pass  # this skips the nodes that are unreachable/crashed
+            pass  
 
     sources = list(set(m.get("source", "") for m in all_metadatas if m))
 

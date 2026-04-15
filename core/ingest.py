@@ -1,4 +1,4 @@
-# takes the database converts it into vector database
+
 import fitz
 import chromadb
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
