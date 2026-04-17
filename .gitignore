@@ -5,5 +5,5 @@ __pycache__/
 *.pyc
 .env
 notes.md
-chroma_db_node1
-chroma_db_node2
+chroma_db_node1/
+chroma_db_node2/

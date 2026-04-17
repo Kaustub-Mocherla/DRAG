@@ -51,7 +51,7 @@ def ingest(pdf_dir, db_path, collection_name):
         metadatas=metadatas,
     )
 
-    
+    print(collection.count())
 
 
 if __name__ == "__main__":
