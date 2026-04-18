@@ -165,7 +165,7 @@ Everything runs **fully locally** — no cloud, no API keys, no data leaves your
 
 ## Development Notes
 
-- Tested on: AMD Ryzen CPU, 8 GB RAM, no discrete GPU, Ubuntu 24.04 LTS, Python 3.13
+- Tested on: AMD Ryzen CPU, 8 GB RAM, no discrete GPU, Arch Linux (ML4W), Python 3.13
 - Virtual environment: `.venv/` (excluded from git)
 - LangChain was evaluated and discarded — direct `fitz` + manual chunking proved simpler and more reliable
 - `all-mpnet-base-v2` was evaluated and discarded — 10+ minute ingestion on CPU; `all-MiniLM-L6-v2` is used instead
